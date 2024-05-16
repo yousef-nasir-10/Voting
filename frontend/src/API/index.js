@@ -1,6 +1,7 @@
 import { isExpired, decodeToken } from "react-jwt";
 import axios from 'axios';
-export const apiBaseURL = 'http://localhost:2000/api/v1'
+// export const apiBaseURL = 'http://localhost:2000/api/v1'
+export const apiBaseURL = 'http://voting-api.yousef-alsuwaileh.com:2000/api/v1'
 
 export const GET = url => {
     return axios.get(`${apiBaseURL}/${url}`);
