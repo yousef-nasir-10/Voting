@@ -12,9 +12,21 @@ const ServerlessHttp = require('serverless-http')
 // const issue = require('./routes/issue')
 require('./pdfExtraction')
 
+function getIPAddress() {
+    var interfaces = require('os').networkInterfaces();
+    for (var devName in interfaces) {
+      var iface = interfaces[devName];
+  
+      for (var i = 0; i < iface.length; i++) {
+        var alias = iface[i];
+        if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal)
+          return alias.address;
+      }
+    }
+    return '0.0.0.0';
+  }
 
-
-
+  console.log(getIPAddress()); 
 
 // midleware 
 app.use(express.json())
@@ -29,11 +41,15 @@ app.use(cors({
 
  
 // routes
+app.use('/home', (req, res) => {
+    res.send(`<h1>This is running on the address of ${getIPAddress()}</h1>`)
+
+})
 app.use('/api/v1/votes', votes)  
 app.use('/api/v1/users', user)   
 // app.use('/api/v1/files', files)   
 // app.use('/api/v1/issue', issue)   
-app.use(notFound)  
+app.use(notFound)   
 app.use(errorHandler)
 
   
