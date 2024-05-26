@@ -41,14 +41,14 @@ app.use(cors({
 
  
 // routes
-app.use('/home', (req, res) => {
-    res.send(`<h1>This is running on the address of ${getIPAddress()}</h1>`)
-
-})
 app.use('/api/v1/votes', votes)  
 app.use('/api/v1/users', user)   
 // app.use('/api/v1/files', files)   
 // app.use('/api/v1/issue', issue)   
+app.use('/', (req, res) => {
+    res.send(`<h1>This is running on the address of ${getIPAddress()}</h1>`)
+
+})
 app.use(notFound)   
 app.use(errorHandler)
 
