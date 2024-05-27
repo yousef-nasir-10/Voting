@@ -1,10 +1,12 @@
 const  mongoose  = require('mongoose')
+var os = require("os");
+var hostname = os.hostname();
 const Vote = require('../models/vote')
 
 const getAllVotes = async (req, res) => {
     try {
         const votes = await Vote.find({})
-        res.status(200).json({votes})
+        res.status(200).json({votes:votes, hostname:hostname})
         //res.status(200).json({votes, amount:votes.length})
         
     } catch (error) {
@@ -22,7 +24,7 @@ const getVoteById = async(req, res) =>{
             return res.status(404).json({msg: `No voting with id : ${voteId}}`})
 
         }
-        res.status(200).json({vote})
+        res.status(200).json({vote: vote, hostname:hostname })
         
     } catch (error) {
         res.status(500).json({msg: error})
